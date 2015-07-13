@@ -1,0 +1,22 @@
+{
+  "name": "react-native-eximage",
+  "repository": {
+    "type" : "git",
+    "url" : ""
+  },
+  "version": "0.1.0",
+  "description": "A Third Party Image Component.",
+  "main": "ExImage.ios.js",
+  "author": "Dong Guo <guodong000@gmail.com> (http://outflush.com)",
+  "nativePackage": true,
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "native",
+    "image",
+    "loading"
+  ]
+}
