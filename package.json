@@ -1,22 +1,38 @@
 {
   "name": "react-native-eximage",
-  "repository": {
-    "type" : "git",
-    "url" : ""
-  },
   "version": "0.1.0",
-  "description": "A Third Party Image Component.",
+  "description": "A Third Party Image Module.",
   "main": "ExImage.ios.js",
-  "author": "Dong Guo <guodong000@gmail.com> (http://outflush.com)",
-  "nativePackage": true,
-  "peerDependencies": {
-    "react-native": "*"
-  },
+  "author": "Dong Guo <guodong000@gmail.com>",
   "keywords": [
     "react-native",
     "react",
     "native",
     "image",
     "loading"
-  ]
+  ],
+  "files": [
+    "RCTExImage.xcodeproj",
+    "ExImage.ios.js",
+    "RCTExImageLoader.h",
+    "RCTExImageLoader.m",
+    "RCTExNetworkImage.h",
+    "RCTExNetworkImage.m",
+    "RCTExNetworkImageManager.h",
+    "RCTExNetworkImageManager.m",
+    "RCTExStaticImage.h",
+    "RCTExStaticImage.m",
+    "RCTExStaticImageManager.h",
+    "RCTExStaticImageManager.m",
+    "CircleProgressIndicator.h",
+    "CircleProgressIndicator.m",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react-native": ">=0.4.2 || 0.5.0-rc1 || 0.6.0-rc || 0.7.0-rc || 0.7.0-rc.2 || 0.8.0-rc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:guodong000/react-native-eximage.git"
+  }
 }
