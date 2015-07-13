@@ -5,9 +5,9 @@
   "main": "ExImage.ios.js",
   "author": "Dong Guo <guodong000@gmail.com>",
   "keywords": [
+    "react-component",
     "react-native",
-    "react",
-    "native",
+    "ios",
     "image",
     "loading"
   ],
@@ -34,5 +34,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:guodong000/react-native-eximage.git"
+  },
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/guodong000/react-native-eximage/issues"
   }
 }
