@@ -69,12 +69,41 @@ var ExImage = React.createClass({
      *   {nativeEvent: { layout: {x, y, width, height}}}.
      */
      onLayout: PropTypes.func,
-
+     /**
+      * Invoked on load start
+      */
+     onLoadStart: PropTypes.func,
+     /**
+      * Invoked on download progress with
+      *
+      *   {nativeEvent: { written, total}}.
+      */
+     onLoadProgress: PropTypes.func,
+     /**
+      * Invoked on load abort
+      */
+     onLoadAbort: PropTypes.func,
+     /**
+      * Invoked on load error
+      *
+      *   {nativeEvent: { error}}.
+      */
+     onLoadError: PropTypes.func,
+     /**
+      * Invoked on load end
+      *
+      */
+     onLoaded: PropTypes.func,
+     /**
+      * Progress Indicator background color
+      *
+      */
      loadingBackgroundColor: PropTypes.string,
+     /**
+      * Progress Indicator foreground color
+      *
+      */
      loadingForegroundColor: PropTypes.string,
-     onComplete: PropTypes.func,
-     onWillLoad: PropTypes.func,
-
   },
 
   getDefaultProps: function() {
@@ -135,20 +164,10 @@ var ExImage = React.createClass({
     if (this.props.style && this.props.style.tintColor) {
       warning(RawImage === RCTExStaticImage, 'tintColor style only supported on static images.');
     }
-    var resizeMode = this.props.resizeMode || style.resizeMode;
-    var contentModes = NativeModules.UIManager.UIView.ContentMode;
-    var contentMode;
-    if (resizeMode === ImageResizeMode.stretch) {
-      contentMode = contentModes.ScaleToFill;
-    } else if (resizeMode === ImageResizeMode.contain) {
-      contentMode = contentModes.ScaleAspectFit;
-    } else { // ImageResizeMode.cover or undefined
-      contentMode = contentModes.ScaleAspectFill;
-    }
+    var resizeMode = this.props.resizeMode || style.resizeMode || 'cover';
 
     var nativeProps = merge(this.props, {
       style,
-      contentMode,
       tintColor: style.tintColor,
     });
     if (isStored) {
@@ -165,7 +184,7 @@ var ExImage = React.createClass({
     if (this.props.defaultSource) {
       nativeProps.defaultImageSrc = this.props.defaultSource.uri;
     }
-    return <RawImage {...nativeProps} onChange={this._onChange}/>;
+    return <RawImage {...nativeProps} />;
   }
 });
 
@@ -184,6 +203,7 @@ var nativeOnlyProps = {
   defaultImageSrc: true,
   imageTag: true,
   contentMode: true,
+  imageInfo: true,
 };
 if (__DEV__) {
   verifyPropTypes(ExImage, RCTExStaticImage.viewConfig, nativeOnlyProps);

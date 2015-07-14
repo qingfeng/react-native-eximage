@@ -106,11 +106,7 @@
         [_progressIndicator setProgress:0.0];
         [self addSubview:_progressIndicator];
         
-        NSDictionary *event = @{
-                                @"target": self.reactTag,
-                                @"type": @"onWillLoad"
-                                };
-        [_bridge.eventDispatcher sendInputEventWithName:@"topChange" body:event];
+        [_bridge.eventDispatcher sendInputEventWithName:@"loadStart" body:@{@"target": self.reactTag}];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
 #if DEBUG
@@ -122,6 +118,13 @@
                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                  CGFloat progress = ((CGFloat)receivedSize) / expectedSize;
                                  [_progressIndicator setProgress:progress];
+                                 
+                                 NSDictionary *event = @{
+                                                         @"target": self.reactTag,
+                                                         @"written": @(receivedSize),
+                                                         @"total": @(expectedSize)
+                                                         };
+                                 [_bridge.eventDispatcher sendInputEventWithName:@"loadProgress" body:event];
                              }
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                 if (image) {
@@ -129,22 +132,16 @@
                                     [_progressIndicator removeFromSuperview];
                                     [self addSubview:_imageView];
                                     
-                                    NSDictionary *event = @{
-                                                            @"target": self.reactTag,
-                                                            @"type": @"onComplete",
-                                                            @"done": @(YES)
-                                                            };
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"topChange" body:event];
+                                    [_bridge.eventDispatcher sendInputEventWithName:@"loaded" body:@{@"target": self.reactTag}];
                                 } else {
                                     _canRetry = YES;
                                     [_progressIndicator removeFromSuperview];
                                     [_imageView removeFromSuperview];
                                     NSDictionary *event = @{
                                                             @"target": self.reactTag,
-                                                            @"type": @"onComplete",
-                                                            @"done": @(NO)
+                                                            @"error": error
                                                             };
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"topChange" body:event];
+                                    [_bridge.eventDispatcher sendInputEventWithName:@"loadError" body:event];
                                 }
                             }];
     }

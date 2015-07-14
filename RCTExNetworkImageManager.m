@@ -29,5 +29,4 @@ RCT_EXPORT_VIEW_PROPERTY(contentMode, UIViewContentMode)
 RCT_EXPORT_VIEW_PROPERTY(loadingBackgroundColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(loadingForegroundColor, UIColor)
 
-
 @end
