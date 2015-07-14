@@ -137,7 +137,8 @@
                                     [_bridge.eventDispatcher sendInputEventWithName:@"topChange" body:event];
                                 } else {
                                     _canRetry = YES;
-                                    
+                                    [_progressIndicator removeFromSuperview];
+                                    [_imageView removeFromSuperview];
                                     NSDictionary *event = @{
                                                             @"target": self.reactTag,
                                                             @"type": @"onComplete",
