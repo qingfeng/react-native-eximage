@@ -157,6 +157,7 @@ var ExImage = React.createClass({
     var nativeProps = merge(this.props, {
       style,
       tintColor: style.tintColor,
+      resizeMode: resizeMode,
     });
     if (isStored) {
       nativeProps.imageInfo = {

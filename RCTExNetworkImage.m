@@ -49,8 +49,8 @@
         _gestureReognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:_gestureReognizer];
         
+        self.contentMode = UIViewContentModeScaleAspectFill;
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
         
         _progressIndicator = [[CircleProgressIndicator alloc] init];
         [self addSubview:_progressIndicator];
@@ -85,6 +85,11 @@
     _progressIndicator.foregroundColor = loadingForegroundColor;
 }
 
+- (void)setContentMode:(UIViewContentMode)contentMode {
+    [super setContentMode:contentMode];
+    _imageView.contentMode = contentMode;
+}
+
 - (void)setImageURL:(NSURL *)imageURL {
     _canRetry = NO;
     if (![imageURL isEqual:_imageURL] && _downloadToken) {
@@ -109,10 +114,10 @@
         [_bridge.eventDispatcher sendInputEventWithName:@"loadStart" body:@{@"target": self.reactTag}];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-#if DEBUG
-        SDImageCache *imageCache = [SDImageCache sharedImageCache];
-        [imageCache removeImageForKey:[manager cacheKeyForURL:imageURL]];
-#endif
+//#if DEBUG
+//        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//        [imageCache removeImageForKey:[manager cacheKeyForURL:imageURL]];
+//#endif
         [manager downloadImageWithURL:_imageURL
                               options:SDWebImageRetryFailed
                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -128,7 +133,6 @@
                              }
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                 if (image) {
-                                    _imageView.contentMode = self.contentMode;
                                     _imageView.image = image;
                                     [_progressIndicator removeFromSuperview];
                                     [self addSubview:_imageView];
