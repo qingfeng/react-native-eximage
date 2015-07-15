@@ -128,6 +128,7 @@
                              }
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                 if (image) {
+                                    _imageView.contentMode = self.contentMode;
                                     _imageView.image = image;
                                     [_progressIndicator removeFromSuperview];
                                     [self addSubview:_imageView];
