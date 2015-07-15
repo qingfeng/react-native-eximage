@@ -19,8 +19,8 @@ If your project use CocoaPod
 2. Like above
 3. Add `pod 'SDWebImage', '~> 3.7.2'` to project `Podfile`
 4. `pod install`
-5. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` and `$(SRCROOT)/../../Pods/Headers/Public` - mark as `recursive`. 
-6. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` and `$(SRCROOT)/../../Pods/Headers/Public` - mark as `recursive`.
+5. `RCTExImage.xcodeproj > Build Phase > Link Bindary With Libraries > +` Add `libSDWebImage.a` and `ImageIO.framework`.
+6. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../Pods/Headers/Public` - mark as `recursive`.
 
 Else
 
@@ -31,7 +31,7 @@ Else
 5. Drag & Drop the `SDWebImage.xcodeproj` file under `RCTExImage.xcodeproj`
 6. Rebuild SDWebImage automagically if you ever decide to assimilate some changes in the future from git ... then goto `RCTExImage.xcodeproj > Build Phase > Target Dependencies > + > SDWebImage`.
 7. `RCTExImage.xcodeproj > Build Phase > Link Bindary With Libraries > +` Add `libSDWebImage.a` and `ImageIO.framework`.
-8. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` - mark as `recursive`. 
+8. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/../react-native/Rend `$(SRCROOT)/SDWebImage` - mark as `recursive`. 
 
 
 
