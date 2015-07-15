@@ -309,7 +309,7 @@
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "/Users/donnie/Developer/RCTExImage/RCTExImageExample/Pods/../build/Debug-iphoneos";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -327,7 +327,7 @@
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "/Users/donnie/Developer/RCTExImage/RCTExImageExample/Pods/../build/Debug-iphoneos";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

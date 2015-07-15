@@ -139,7 +139,7 @@
                                     [_imageView removeFromSuperview];
                                     NSDictionary *event = @{
                                                             @"target": self.reactTag,
-                                                            @"error": error
+                                                            @"error": error.description
                                                             };
                                     [_bridge.eventDispatcher sendInputEventWithName:@"loadError" body:event];
                                 }

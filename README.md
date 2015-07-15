@@ -72,16 +72,22 @@ var RCTExImageExample = React.createClass({
           <ExImage
             source={{uri:'http://i.ytimg.com/vi/SQEbPn36m1c/maxresdefault.jpg'}}
             style={{width: SCREEN_WIDTH, height: SCREEN_WIDTH, alignItems:'center', justifyContent:'center'}}
-            onWillLoad={() => {
-              if (this.state.loadFailed) {
-                this.setState({loadFailed: false});
-              }
+            resizeMode='cover'
+            onLoadStart={(event) => {
+              this.setState({loadFailed: false});
+              console.log('onLoadStart: ' + event);
             }}
-            onComplete={(success) => {
-              if (!success) {
-                this.setState({loadFailed: true})
-              }
-            }}>
+            onLoadProgress={(event) => {
+              console.log('onLoadProgress: ' + event);
+            }}
+            onLoadError={(event) => {
+              this.setState({loadFailed: true})
+              console.log('onLoadError: ' + event);
+            }}
+            onLoaded={(event) => {
+              console.log('onLoaded: ' + event);
+            }}
+            >
             {errorEle}
           </ExImage>
           <ExImage source={{uri:'assets-library://asset/asset.JPG?id=A1844CD1-28A1-43EB-8894-B769BFABFF12&ext=JPG'}} style={{width: SCREEN_WIDTH, height: SCREEN_WIDTH}} />
