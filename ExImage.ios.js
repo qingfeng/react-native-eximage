@@ -128,18 +128,6 @@ var ExImage = React.createClass({
     validAttributes: ReactNativeViewAttributes.UIView
   },
 
-  componentDidMount: function() {
-    this._onChange = this._onChange.bind(this);
-  },
-
-  _onChange: function(event) {
-    if (this.props.onComplete && event.nativeEvent.type === 'onComplete') {
-      this.props.onComplete(event.nativeEvent.done);
-    } else if (this.props.onWillLoad && event.nativeEvent.type === 'onWillLoad') {
-      this.props.onWillLoad();
-    }
-  },
-
   render: function() {
     for (var prop in nativeOnlyProps) {
       if (this.props[prop] !== undefined) {
