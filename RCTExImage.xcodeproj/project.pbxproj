@@ -13,47 +13,11 @@
 		F81B45861B4E71D5002F29CD /* RCTExNetworkImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F81B45851B4E71D5002F29CD /* RCTExNetworkImageManager.m */; };
 		F81B45891B4E7313002F29CD /* RCTExNetworkImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F81B45881B4E7313002F29CD /* RCTExNetworkImage.m */; };
 		F81B458C1B4EB57C002F29CD /* CircleProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F81B458B1B4EB57C002F29CD /* CircleProgressIndicator.m */; };
-		F8450FE61B53E26300465A01 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8450FDD1B53E12D00465A01 /* libSDWebImage.a */; };
 		F8E15D351B4BE78700A7A3B5 /* libRCTExImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E15D291B4BE78700A7A3B5 /* libRCTExImage.a */; };
 		F8E15D621B4BEEFE00A7A3B5 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E15D611B4BEEFE00A7A3B5 /* ImageIO.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F8450FDC1B53E12D00465A01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 53761325155AD0D5005750A4;
-			remoteInfo = SDWebImage;
-		};
-		F8450FDE1B53E12D00465A01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 537D95C117ECC1FE0097C263;
-			remoteInfo = "SDWebImage+WebP";
-		};
-		F8450FE01B53E12D00465A01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 531041E0157EAFA400BBABC3;
-			remoteInfo = "SDWebImage+MKAnnotation";
-		};
-		F8450FE21B53E12D00465A01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4A2CADFF1AB4BB5300B6BC39;
-			remoteInfo = WebImage;
-		};
-		F8450FE41B53E23100465A01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A2CADFE1AB4BB5300B6BC39;
-			remoteInfo = WebImage;
-		};
 		F8E15D361B4BE78700A7A3B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8E15D211B4BE78700A7A3B5 /* Project object */;
@@ -88,7 +52,6 @@
 		F81B45881B4E7313002F29CD /* RCTExNetworkImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTExNetworkImage.m; sourceTree = "<group>"; };
 		F81B458A1B4EB57B002F29CD /* CircleProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressIndicator.h; sourceTree = "<group>"; };
 		F81B458B1B4EB57C002F29CD /* CircleProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressIndicator.m; sourceTree = "<group>"; };
-		F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		F8E15D291B4BE78700A7A3B5 /* libRCTExImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTExImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E15D341B4BE78700A7A3B5 /* RCTExImageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RCTExImageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E15D611B4BEEFE00A7A3B5 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -99,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8450FE61B53E26300465A01 /* libSDWebImage.a in Frameworks */,
 				F8E15D621B4BEEFE00A7A3B5 /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,21 +77,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F8450FD51B53E12D00465A01 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F8450FDD1B53E12D00465A01 /* libSDWebImage.a */,
-				F8450FDF1B53E12D00465A01 /* libSDWebImage+WebP.a */,
-				F8450FE11B53E12D00465A01 /* libSDWebImage+MKAnnotation.a */,
-				F8450FE31B53E12D00465A01 /* WebImage.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F8E15D201B4BE78700A7A3B5 = {
 			isa = PBXGroup;
 			children = (
-				F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */,
 				F81B458A1B4EB57B002F29CD /* CircleProgressIndicator.h */,
 				F81B458B1B4EB57C002F29CD /* CircleProgressIndicator.m */,
 				F81B45871B4E7313002F29CD /* RCTExNetworkImage.h */,
@@ -170,7 +120,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F8450FE51B53E23100465A01 /* PBXTargetDependency */,
 			);
 			name = RCTExImage;
 			productName = RCTExImage;
@@ -222,12 +171,6 @@
 			mainGroup = F8E15D201B4BE78700A7A3B5;
 			productRefGroup = F8E15D2A1B4BE78700A7A3B5 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F8450FD51B53E12D00465A01 /* Products */;
-					ProjectRef = F8450FD41B53E12D00465A01 /* SDWebImage.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F8E15D281B4BE78700A7A3B5 /* RCTExImage */,
@@ -235,37 +178,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F8450FDD1B53E12D00465A01 /* libSDWebImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDWebImage.a;
-			remoteRef = F8450FDC1B53E12D00465A01 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8450FDF1B53E12D00465A01 /* libSDWebImage+WebP.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libSDWebImage+WebP.a";
-			remoteRef = F8450FDE1B53E12D00465A01 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8450FE11B53E12D00465A01 /* libSDWebImage+MKAnnotation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libSDWebImage+MKAnnotation.a";
-			remoteRef = F8450FE01B53E12D00465A01 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F8450FE31B53E12D00465A01 /* WebImage.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = WebImage.framework;
-			remoteRef = F8450FE21B53E12D00465A01 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F8E15D321B4BE78700A7A3B5 /* Resources */ = {
@@ -301,11 +213,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F8450FE51B53E23100465A01 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = WebImage;
-			targetProxy = F8450FE41B53E23100465A01 /* PBXContainerItemProxy */;
-		};
 		F8E15D371B4BE78700A7A3B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8E15D281B4BE78700A7A3B5 /* RCTExImage */;
@@ -398,14 +305,15 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/SDWebImage/**",
+					"$(SRCROOT)/../../Pods/Headers/Public/**",
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/donnie/Developer/RCTExImage/RCTExImageExample/Pods/../build/Debug-iphoneos";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -415,14 +323,15 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/SDWebImage/**",
+					"$(SRCROOT)/../../Pods/Headers/Public/**",
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/donnie/Developer/RCTExImage/RCTExImageExample/Pods/../build/Debug-iphoneos";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

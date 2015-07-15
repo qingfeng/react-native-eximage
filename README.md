@@ -22,6 +22,15 @@ A image module for React Native.
 7. `RCTExImage.xcodeproj > Build Phase > Link Bindary With Libraries > +` Add `libSDWebImage.a` and `ImageIO.framework`.
 8. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` - mark as `recursive`. 
 
+If your project use CocoaPod
+
+1. Like above
+2. Like above
+3. Add `pod 'SDWebImage', '~> 3.7.2'` to project `Podfile`
+4. `pod install`
+5. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` and `$(SRCROOT)/../../Pods/Headers/Public` - mark as `recursive`. 
+6. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/SDWebImage` and `$(SRCROOT)/../../Pods/Headers/Public` - mark as `recursive`.
+
 ## Example
 ```
 'use strict';
