@@ -1,6 +1,6 @@
 {
   "name": "react-native-eximage",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Third Party Image Module.",
   "main": "ExImage.ios.js",
   "author": "Guo Dong <guodong000@gmail.com>",
