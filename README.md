@@ -110,6 +110,7 @@ AppRegistry.registerComponent('RCTExImageExample', () => RCTExImageExample);
 ## Thanks
 
 **thumbnail generate**: http://www.mindsea.com/2012/12/downscaling-huge-alassets-without-fear-of-sigkill/
+
 **Olivier Poitrey (the author of SDWebImage)**: https://github.com/rs
 
 ## License
