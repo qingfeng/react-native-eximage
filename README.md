@@ -1,15 +1,14 @@
-# react-native-eximage
+react-native-eximage
+=======
 A image module for React Native.
 
-兼容 React Native 的 Image module，内部使用 [SDWebImage](https://github.com/rs/SDWebImage) 库。
+depend on [SDWebImage](https://github.com/rs/SDWebImage)。
 
-新增以下功能：
+## Feature
 
-* 网络图片加载 loading 动画
-* 基于图片 style 中设置的大小，对图片进行缩放，在保证图片质量的前提下，降低损耗
-* 更多特性敬请期待
-
-（我英语不好，哪位英语好的兄台帮忙翻译一下...）
+* Loading progress indicator for network image
+* Auto scale assets image
+* More coming soon...
 
 ## Getting started
 
@@ -31,11 +30,11 @@ Else
 5. Drag & Drop the `SDWebImage.xcodeproj` file under `RCTExImage.xcodeproj`
 6. Rebuild SDWebImage automagically if you ever decide to assimilate some changes in the future from git ... then goto `RCTExImage.xcodeproj > Build Phase > Target Dependencies > + > SDWebImage`.
 7. `RCTExImage.xcodeproj > Build Phase > Link Bindary With Libraries > +` Add `libSDWebImage.a` and `ImageIO.framework`.
-8. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/../react-native/Rend `$(SRCROOT)/SDWebImage` - mark as `recursive`. 
+8. `RCTExImage.xcodeproj > Build Settings > Header Search Paths` Look for `Header Search Paths` and make sure it contains `$(SRCROOT)/../react-native/Rend `$(SRCROOT)/SDWebImage` - mark as `recursive`.
 
 
+## Usage
 
-## Example
 ```
 'use strict';
 
@@ -60,7 +59,7 @@ var RCTExImageExample = React.createClass({
       loadFailed: false,
     }
   },
-  
+
   render: function() {
     var errorEle = null;
     if (this.state.loadFailed) {
@@ -111,3 +110,8 @@ AppRegistry.registerComponent('RCTExImageExample', () => RCTExImageExample);
 ## Thanks
 
 **thumbnail generate**: http://www.mindsea.com/2012/12/downscaling-huge-alassets-without-fear-of-sigkill/
+**Olivier Poitrey (the author of SDWebImage)**: https://github.com/rs
+
+## License
+
+[MIT License](http://opensource.org/licenses/mit-license.html).
