@@ -91,19 +91,20 @@ var ExImage = React.createClass({
      onLoadError: PropTypes.func,
      /**
       * Invoked on load end
-      *
       */
      onLoaded: PropTypes.func,
      /**
       * Progress Indicator background color
-      *
       */
      loadingBackgroundColor: PropTypes.string,
      /**
       * Progress Indicator foreground color
-      *
       */
      loadingForegroundColor: PropTypes.string,
+     /**
+      * Whether Progress Indicator should be display
+      */
+     progressIndicate: PropTypes.bool,
   },
 
   getDefaultProps: function() {

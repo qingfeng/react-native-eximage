@@ -27,6 +27,8 @@
 
 @property (nonatomic) UIColor *loadingForegroundColor;
 
+@property (nonatomic) BOOL progressIndicate;
+
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 @end

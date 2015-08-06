@@ -36,21 +36,26 @@
     UITapGestureRecognizer *_gestureReognizer;
     
     BOOL _canRetry;
+    BOOL _downloaded;
 }
 
 @synthesize imageURL = _imageURL;
+@synthesize progressIndicate = _progressIndicate;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _bridge = bridge;
         _canRetry = NO;
+        _downloaded = NO;
         
         _gestureReognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:_gestureReognizer];
         
         self.contentMode = UIViewContentModeScaleAspectFill;
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_imageView setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_imageView];
         
         _progressIndicator = [[CircleProgressIndicator alloc] init];
         [self addSubview:_progressIndicator];
@@ -77,6 +82,22 @@
     [self retry];
 }
 
+- (void)setProgressIndicate:(BOOL)progressIndicate {
+    _progressIndicate = progressIndicate;
+    if (progressIndicate && !_progressIndicator.superview) {
+        [self addSubview:_progressIndicator];
+    } else if (!progressIndicate && _progressIndicator.superview) {
+        [_progressIndicator removeFromSuperview];
+    }
+}
+
+- (void)setDefaultImage:(UIImage *)defaultImage {
+    _defaultImage = defaultImage;
+    if (!_downloaded) {
+        _imageView.image = defaultImage;
+    }
+}
+
 - (void)setLoadingBackgroundColor:(UIColor *)loadingBackgroundColor {
     _progressIndicator.backgroundColor = loadingBackgroundColor;
 }
@@ -101,23 +122,28 @@
         _deferredImageURL = imageURL;
     } else {
         if (!imageURL) {
-            [_imageView removeFromSuperview];
+            if (!_defaultImage) {
+                _imageView.image = nil;
+            }
             return;
         }
         
         _imageURL = imageURL;
         
-        [_imageView removeFromSuperview];
+        if (!_defaultImage) {
+            _imageView.image = nil;
+        }
         [_progressIndicator setProgress:0.0];
         [self addSubview:_progressIndicator];
         
         [_bridge.eventDispatcher sendInputEventWithName:@"loadStart" body:@{@"target": self.reactTag}];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//#if DEBUG
-//        SDImageCache *imageCache = [SDImageCache sharedImageCache];
-//        [imageCache removeImageForKey:[manager cacheKeyForURL:imageURL]];
-//#endif
+#ifndef NDEBUG
+        SDImageCache *imageCache = [SDImageCache sharedImageCache];
+        [imageCache removeImageForKey:[manager cacheKeyForURL:imageURL]];
+#endif
+        _downloaded = NO;
         [manager downloadImageWithURL:_imageURL
                               options:SDWebImageRetryFailed
                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -132,16 +158,18 @@
                                  [_bridge.eventDispatcher sendInputEventWithName:@"loadProgress" body:event];
                              }
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                _downloaded = YES;
                                 if (image) {
                                     _imageView.image = image;
                                     [_progressIndicator removeFromSuperview];
-                                    [self addSubview:_imageView];
                                     
                                     [_bridge.eventDispatcher sendInputEventWithName:@"loaded" body:@{@"target": self.reactTag}];
                                 } else {
                                     _canRetry = YES;
                                     [_progressIndicator removeFromSuperview];
-                                    [_imageView removeFromSuperview];
+                                    if (!_defaultImage) {
+                                        _imageView.image = nil;
+                                    }
                                     NSDictionary *event = @{
                                                             @"target": self.reactTag,
                                                             @"error": error.description
