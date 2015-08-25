@@ -1,5 +1,7 @@
 react-native-eximage
 =======
+[![NPM](https://nodei.co/npm/react-native-eximage.png)](https://nodei.co/npm/react-native-eximage/)
+
 A image module for React Native.
 
 depend on [SDWebImage](https://github.com/rs/SDWebImage)。

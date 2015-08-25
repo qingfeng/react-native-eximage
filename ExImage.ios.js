@@ -174,6 +174,15 @@ var ExImage = React.createClass({
     if (this.props.defaultSource) {
       nativeProps.defaultImageSrc = this.props.defaultSource.uri;
     }
+
+    nativeProps.onExLoadStart = nativeProps.onLoadStart;
+    nativeProps.onExLoadProgress = nativeProps.onLoadProgress;
+    nativeProps.onExLoadError = nativeProps.onLoadError;
+    nativeProps.onExLoaded = nativeProps.onLoaded;
+    delete nativeProps.onLoadStart;
+    delete nativeProps.onLoadProgress;
+    delete nativeProps.onLoadError;
+    delete nativeProps.onLoaded;
     return <RawImage {...nativeProps} />;
   }
 });

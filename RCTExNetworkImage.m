@@ -136,7 +136,7 @@
         [_progressIndicator setProgress:0.0];
         [self addSubview:_progressIndicator];
         
-        [_bridge.eventDispatcher sendInputEventWithName:@"loadStart" body:@{@"target": self.reactTag}];
+        [_bridge.eventDispatcher sendInputEventWithName:@"exLoadStart" body:@{@"target": self.reactTag}];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
 //#ifndef NDEBUG
@@ -155,7 +155,7 @@
                                                          @"written": @(receivedSize),
                                                          @"total": @(expectedSize)
                                                          };
-                                 [_bridge.eventDispatcher sendInputEventWithName:@"loadProgress" body:event];
+                                 [_bridge.eventDispatcher sendInputEventWithName:@"exLoadProgress" body:event];
                              }
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                 _downloaded = YES;
@@ -163,7 +163,7 @@
                                     _imageView.image = image;
                                     [_progressIndicator removeFromSuperview];
                                     
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"loaded" body:@{@"target": self.reactTag}];
+                                    [_bridge.eventDispatcher sendInputEventWithName:@"exLoaded" body:@{@"target": self.reactTag}];
                                 } else {
                                     _canRetry = YES;
                                     [_progressIndicator removeFromSuperview];
@@ -174,7 +174,7 @@
                                                             @"target": self.reactTag,
                                                             @"error": error.description
                                                             };
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"loadError" body:event];
+                                    [_bridge.eventDispatcher sendInputEventWithName:@"exLoadError" body:event];
                                 }
                             }];
     }
