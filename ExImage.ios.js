@@ -209,4 +209,12 @@ if (__DEV__) {
   verifyPropTypes(ExImage, RCTExNetworkImage.viewConfig, nativeOnlyProps);
 }
 
+ExImage.calculateCacheSize = function(callback) {
+  NativeModules.ExNetworkImageManager.calculateCacheSize(callback);
+}
+
+ExImage.clearCache = function(callback) {
+  NativeModules.ExNetworkImageManager.clearCache(callback);
+}
+
 module.exports = ExImage;

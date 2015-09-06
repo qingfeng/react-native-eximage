@@ -9,6 +9,7 @@
 #import "RCTExNetworkImageManager.h"
 
 #import "RCTExNetworkImage.h"
+#import <SDWebImage/SDImageCache.h>
 
 #import "RCTBridge.h"
 #import "RCTConvert.h"
@@ -29,6 +30,18 @@ RCT_REMAP_VIEW_PROPERTY(resizeMode, contentMode, UIViewContentMode)
 RCT_EXPORT_VIEW_PROPERTY(loadingBackgroundColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(loadingForegroundColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(progressIndicate, BOOL)
+
+RCT_EXPORT_METHOD(calculateCacheSize:(RCTResponseSenderBlock)callback) {
+    SDImageCache *cache = [SDImageCache sharedImageCache];
+    NSInteger size = [cache getSize];
+    callback(@[@(size)]);
+}
+
+RCT_EXPORT_METHOD(clearCache:(RCTResponseSenderBlock)callback) {
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        callback(@[]);
+    }];
+}
 
 - (NSDictionary *)customDirectEventTypes {
     return @{

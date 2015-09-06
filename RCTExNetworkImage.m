@@ -139,10 +139,6 @@
         [_bridge.eventDispatcher sendInputEventWithName:@"exLoadStart" body:@{@"target": self.reactTag}];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//#ifndef NDEBUG
-//        SDImageCache *imageCache = [SDImageCache sharedImageCache];
-//        [imageCache removeImageForKey:[manager cacheKeyForURL:imageURL]];
-//#endif
         _downloaded = NO;
         [manager downloadImageWithURL:_imageURL
                               options:SDWebImageRetryFailed
