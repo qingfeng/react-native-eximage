@@ -10,10 +10,13 @@
 
 #import <UIKit/UIKit.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import <SDWebImage/SDImageCache.h>
 
 #import "RCTConvert.h"
 #import "RCTExImageLoader.h"
 #import "RCTExStaticImage.h"
+#import "RCTBridge.h"
+#import "RCTExImageLoader.h"
 
 @implementation RCTExStaticImageManager
 
@@ -57,6 +60,7 @@ RCT_CUSTOM_VIEW_PROPERTY(imageInfo, NSDictionary, RCTExStaticImage)
         NSDictionary *info = [RCTConvert NSDictionary:json];
         
         NSNumber *maxSize = nil;
+        BOOL cacheThumbnail = ((NSNumber *)info[@"cacheThumbnail"]).boolValue;
         NSInteger prezWidth = ((NSNumber *)info[@"prezSize"][@"width"]).integerValue;
         NSInteger prezHeight = ((NSNumber *)info[@"prezSize"][@"height"]).integerValue;
         if (prezWidth > 0 || prezHeight > 0) {
@@ -64,6 +68,7 @@ RCT_CUSTOM_VIEW_PROPERTY(imageInfo, NSDictionary, RCTExStaticImage)
         }
         [RCTExImageLoader loadImageWithTag:info[@"imageTag"]
                                    maxSize:maxSize
+                            cacheThumbnail:cacheThumbnail
                                   callback:^(NSError *error, id image) {
                                       if (error) {
                                           RCTLogWarn(@"%@", error.localizedDescription);
@@ -75,5 +80,10 @@ RCT_CUSTOM_VIEW_PROPERTY(imageInfo, NSDictionary, RCTExStaticImage)
     }
 }
 
+RCT_EXPORT_METHOD(clearThumbnailCache:(RCTResponseSenderBlock)callback) {
+    [[RCTExImageLoader thumbnailCache] clearDiskOnCompletion:^{
+        callback(@[]);
+    }];
+}
 
 @end

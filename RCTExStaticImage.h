@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign) UIEdgeInsets capInsets;
 @property (nonatomic, assign) UIImageRenderingMode renderingMode;
+@property (nonatomic) BOOL cacheThumbnail;
 
 @end

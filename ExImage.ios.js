@@ -105,6 +105,10 @@ var ExImage = React.createClass({
       * Whether Progress Indicator should be display
       */
      progressIndicate: PropTypes.bool,
+     /**
+      * Whether cache StaticImage thumbnail
+      */
+     cacheThumbnail: PropTypes.bool,
   },
 
   getDefaultProps: function() {
@@ -160,13 +164,17 @@ var ExImage = React.createClass({
       tintColor: style.tintColor,
       resizeMode: resizeMode,
     });
+    if (nativeProps.cacheThumbnail === undefined) {
+      nativeProps.cacheThumbnail = false;
+    }
     if (isStored) {
       nativeProps.imageInfo = {
         imageTag: source.uri,
         prezSize: {
           width: style.width || 0,
           height: style.height || 0,
-        }
+        },
+        cacheThumbnail: nativeProps.cacheThumbnail,
       }
     } else {
       nativeProps.src = source.uri;
@@ -215,6 +223,10 @@ ExImage.calculateCacheSize = function(callback) {
 
 ExImage.clearCache = function(callback) {
   NativeModules.ExNetworkImageManager.clearCache(callback);
+}
+
+ExImage.clearThumbnailCache = function(callback) {
+  NativeModules.RCTExStaticImageManager.clearThumbnailCache(callback);
 }
 
 module.exports = ExImage;

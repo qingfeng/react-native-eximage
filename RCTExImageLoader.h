@@ -11,8 +11,11 @@
 
 @class ALAssetsLibrary;
 @class UIImage;
+@class SDImageCache;
 
 @interface RCTExImageLoader : NSObject
+
++ (SDImageCache *)thumbnailCache;
 
 + (ALAssetsLibrary *)assetsLibrary;
 
@@ -23,7 +26,9 @@
 + (void)loadImageWithTag:(NSString *)tag
                 callback:(void (^)(NSError *error, id /* UIImage or CAAnimation */ image))callback;
 
-+ (void)loadImageWithTag:(NSString *)imageTag maxSize:(NSNumber *)size
++ (void)loadImageWithTag:(NSString *)imageTag
+                 maxSize:(NSNumber *)size
+          cacheThumbnail:(BOOL)cacheThumbnail
                 callback:(void (^)(NSError *, id))callback;
 
 @end

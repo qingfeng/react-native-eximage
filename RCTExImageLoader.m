@@ -15,9 +15,12 @@
 #import <Photos/PHImageManager.h>
 #import <UIKit/UIKit.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import <SDWebImage/SDImageCache.h>
 
 #import "RCTConvert.h"
 #import "RCTLog.h"
+
+#define kExImageThumbnailCacheNamespace @"ExImageThumbnailCacheNamespace"
 
 static dispatch_queue_t RCTExImageLoaderQueue(void)
 {
@@ -70,6 +73,15 @@ static void releaseAssetCallback(void *info) {
 
 @implementation RCTExImageLoader
 
++ (SDImageCache *)thumbnailCache {
+    static SDImageCache *thumbnailCache = nil;
+    static dispatch_once_t thumbnailCacheOnceToken;
+    dispatch_once(&thumbnailCacheOnceToken, ^{
+        thumbnailCache = [[SDImageCache alloc] initWithNamespace:kExImageThumbnailCacheNamespace];
+    });
+    return thumbnailCache;
+}
+
 + (ALAssetsLibrary *)assetsLibrary
 {
     static ALAssetsLibrary *assetsLibrary = nil;
@@ -84,9 +96,22 @@ static void releaseAssetCallback(void *info) {
 // The resulting UIImage will be already rotated to UIImageOrientationUp, so its CGImageRef
 // can be used directly without additional rotation handling.
 // This is done synchronously, so you should call this method on a background queue/thread.
-+ (UIImage *)thumbnailForAsset:(ALAsset *)asset maxPixelSize:(NSNumber *)size {
++ (UIImage *)thumbnailForAsset:(ALAsset *)asset maxPixelSize:(NSNumber *)size useCache:(BOOL)useCache {
     NSParameterAssert(asset != nil);
     NSParameterAssert(size > 0);
+    
+    SDImageCache *imageCache = [RCTExImageLoader thumbnailCache];
+    UIImage *image = nil;
+    NSString *cacheKey = [NSString stringWithFormat:@"%@&maxSize=%@", [asset valueForProperty:ALAssetPropertyAssetURL], size];
+    if (useCache) {
+        image = [imageCache imageFromMemoryCacheForKey:cacheKey];
+        if (!image) {
+            image = [imageCache imageFromDiskCacheForKey:cacheKey];
+        }
+        if (image) {
+            return image;
+        }
+    }
     
     ALAssetRepresentation *rep = [asset defaultRepresentation];
     
@@ -118,11 +143,19 @@ static void releaseAssetCallback(void *info) {
     
     CFRelease(imageRef);
     
+    if (useCache) {
+        [imageCache removeImageForKey:cacheKey];
+        [imageCache storeImage:toReturn forKey:cacheKey];
+    }
+    
     return toReturn;
 }
 
 
-+ (void)loadImageWithTag:(NSString *)imageTag maxSize:(NSNumber *)size callback:(void (^)(NSError *, id))callback {
++ (void)loadImageWithTag:(NSString *)imageTag
+                 maxSize:(NSNumber *)size
+          cacheThumbnail:(BOOL)cacheThumbnail
+                callback:(void (^)(NSError *, id))callback {
     if ([imageTag hasPrefix:@"assets-library"]) {
         [[RCTExImageLoader assetsLibrary] assetForURL:[NSURL URLWithString:imageTag] resultBlock:^(ALAsset *asset) {
             if (asset) {
@@ -136,7 +169,7 @@ static void releaseAssetCallback(void *info) {
                     @autoreleasepool {
                         UIImage *image;
                         if (size) {
-                            image = [self thumbnailForAsset:asset maxPixelSize:size];
+                            image = [self thumbnailForAsset:asset maxPixelSize:size useCache:cacheThumbnail];
                         } else {
                             ALAssetRepresentation *representation = [asset defaultRepresentation];
                             ALAssetOrientation orientation = [representation orientation];
@@ -208,7 +241,7 @@ static void releaseAssetCallback(void *info) {
  */
 + (void)loadImageWithTag:(NSString *)imageTag callback:(void (^)(NSError *error, id image))callback
 {
-    [self loadImageWithTag:imageTag maxSize:nil callback:callback];
+    [self loadImageWithTag:imageTag maxSize:nil cacheThumbnail:NO callback:callback];
 }
 
 @end
