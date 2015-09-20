@@ -171,9 +171,10 @@ static void releaseAssetCallback(void *info) {
                         if (size) {
                             image = [self thumbnailForAsset:asset maxPixelSize:size useCache:cacheThumbnail];
                         } else {
-                            ALAssetRepresentation *representation = [asset defaultRepresentation];
-                            ALAssetOrientation orientation = [representation orientation];
-                            image = [UIImage imageWithCGImage:[representation fullResolutionImage] scale:1.0f orientation:(UIImageOrientation)orientation];
+                            //ALAssetRepresentation *representation = [asset defaultRepresentation];
+                            //ALAssetOrientation orientation = [representation orientation];
+                            //image = [UIImage imageWithCGImage:[representation fullResolutionImage] scale:1.0f orientation:(UIImageOrientation)orientation];
+                            image = [UIImage imageWithCGImage:[asset thumbnail]];
                         }
                         RCTDispatchCallbackOnMainQueue(callback, nil, image);
                     }
