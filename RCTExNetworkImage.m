@@ -24,17 +24,17 @@
 @implementation RCTExNetworkImage
 {
     RCTBridge *_bridge;
-    
+
     UIImageView *_imageView;
     NSURL *_imageURL;
     id<SDWebImageOperation> _downloadToken;
     BOOL _deferred;
     NSURL *_deferredImageURL;
     NSUInteger _deferSentinel;
-    
+
     CircleProgressIndicator *_progressIndicator;
     UITapGestureRecognizer *_gestureReognizer;
-    
+
     BOOL _canRetry;
     BOOL _downloaded;
 }
@@ -48,15 +48,15 @@
         _bridge = bridge;
         _canRetry = NO;
         _downloaded = NO;
-        
+
         _gestureReognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:_gestureReognizer];
-        
+
         self.contentMode = UIViewContentModeScaleAspectFill;
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_imageView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:_imageView];
-        
+
         _progressIndicator = [[CircleProgressIndicator alloc] init];
         [self addSubview:_progressIndicator];
     }
@@ -117,7 +117,7 @@
         [_downloadToken cancel];
         _downloadToken = nil;
     }
-    
+
     if (_deferred) {
         _deferredImageURL = imageURL;
     } else {
@@ -127,52 +127,54 @@
             }
             return;
         }
-        
+
         _imageURL = imageURL;
-        
+
         if (!_defaultImage) {
             _imageView.image = nil;
         }
         [_progressIndicator setProgress:0.0];
         [self addSubview:_progressIndicator];
-        
+
         [_bridge.eventDispatcher sendInputEventWithName:@"exLoadStart" body:@{@"target": self.reactTag}];
-        
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        _downloaded = NO;
-        [manager downloadImageWithURL:_imageURL
-                              options:SDWebImageRetryFailed
-                             progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                 CGFloat progress = ((CGFloat)receivedSize) / expectedSize;
-                                 [_progressIndicator setProgress:progress];
-                                 
-                                 NSDictionary *event = @{
-                                                         @"target": self.reactTag,
-                                                         @"written": @(receivedSize),
-                                                         @"total": @(expectedSize)
-                                                         };
-                                 [_bridge.eventDispatcher sendInputEventWithName:@"exLoadProgress" body:event];
-                             }
-                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                _downloaded = YES;
-                                if (image) {
-                                    _imageView.image = image;
-                                    [_progressIndicator removeFromSuperview];
-                                    
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"exLoaded" body:@{@"target": self.reactTag}];
-                                } else {
-                                    _canRetry = YES;
-                                    [_progressIndicator removeFromSuperview];
-                                    if (!_defaultImage) {
-                                        _imageView.image = nil;
-                                    }
-                                    NSDictionary *event = @{
-                                                            @"target": self.reactTag,
-                                                            @"error": error.description
-                                                            };
-                                    [_bridge.eventDispatcher sendInputEventWithName:@"exLoadError" body:event];
-                                }
-                            }];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+          SDWebImageManager *manager = [SDWebImageManager sharedManager];
+          _downloaded = NO;
+          [manager downloadImageWithURL:_imageURL
+                                options:SDWebImageRetryFailed
+                               progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                   CGFloat progress = ((CGFloat)receivedSize) / expectedSize;
+                                   [_progressIndicator setProgress:progress];
+
+                                   NSDictionary *event = @{
+                                                           @"target": self.reactTag,
+                                                           @"written": @(receivedSize),
+                                                           @"total": @(expectedSize)
+                                                           };
+                                   [_bridge.eventDispatcher sendInputEventWithName:@"exLoadProgress" body:event];
+                               }
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                  _downloaded = YES;
+                                  if (image) {
+                                      _imageView.image = image;
+                                      [_progressIndicator removeFromSuperview];
+
+                                      [_bridge.eventDispatcher sendInputEventWithName:@"exLoaded" body:@{@"target": self.reactTag}];
+                                  } else {
+                                      _canRetry = YES;
+                                      [_progressIndicator removeFromSuperview];
+                                      if (!_defaultImage) {
+                                          _imageView.image = nil;
+                                      }
+                                      NSDictionary *event = @{
+                                                              @"target": self.reactTag,
+                                                              @"error": error.description
+                                                              };
+                                      [_bridge.eventDispatcher sendInputEventWithName:@"exLoadError" body:event];
+                                  }
+                              }];
+            });
     }
 }
 
